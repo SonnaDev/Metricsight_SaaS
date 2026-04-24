@@ -52,7 +52,7 @@ export default function Dashboard() {
     <div className="min-h-screen bg-gray-50">
       <nav className="bg-white border-b px-6 py-4 flex items-center justify-between">
         <h1 className="font-medium text-lg">MetricSight</h1>
-        <span className="text-sm text-gray-400">Welcome, Admin</span>
+        <span className="text-sm text-gray-400">Welcome, Admin!!</span>
       </nav>
 
       <main className="max-w-5xl mx-auto p-8">
