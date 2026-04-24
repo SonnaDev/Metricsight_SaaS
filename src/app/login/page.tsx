@@ -22,6 +22,10 @@ export default function LoginPage() {
             redirect: false,
         })
 
+        new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('timeout')), 8000)
+      ) as { error?: string } | undefined
+
         if (result?.error) {
             setError('Invalid email or password')
             setLoading(false)
