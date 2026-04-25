@@ -1,19 +1,18 @@
-import type { Metadata } from 'next'
+'use client'
+
+import { SessionProvider } from 'next-auth/react'
 import './globals.css'
 
-export const metadata: Metadata = {
-    title: 'MetricSight',
-    description: 'SaaS Analytics Dashboard',
-}
-
 export default function RootLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode
+  children: React.ReactNode
 }) {
-    return (
-        <html lang="en">
-            <body>{children}</body>
-        </html>
-    )
+  return (
+    <html lang="en">
+      <body>
+        <SessionProvider>{children}</SessionProvider>
+      </body>
+    </html>
+  )
 }

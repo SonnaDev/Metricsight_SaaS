@@ -2,15 +2,8 @@
 
 import { useEffect, useState } from 'react'
 import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  BarChart,
-  Bar,
+  LineChart, Line, XAxis, YAxis, CartesianGrid,
+  Tooltip, ResponsiveContainer, BarChart, Bar,
 } from 'recharts'
 
 type Stats = {
@@ -49,89 +42,58 @@ export default function Dashboard() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white border-b px-6 py-4 flex items-center justify-between">
-        <h1 className="font-medium text-lg">MetricSight</h1>
-        <span className="text-sm text-gray-400">Welcome, Admin!!</span>
-      </nav>
+    <main className="max-w-5xl mx-auto p-8">
+      <h2 className="text-lg font-medium mb-6">Overview</h2>
 
-      <main className="max-w-5xl mx-auto p-8">
-
-        {/* Metric cards */}
-        <div className="grid grid-cols-3 gap-4 mb-8">
-          <div className="bg-white rounded-xl border p-6">
-            <p className="text-sm text-gray-500">Total Users</p>
-            <p className="text-2xl font-medium mt-1">
-              {loading ? '...' : stats?.userCount.toLocaleString()}
-            </p>
-          </div>
-          <div className="bg-white rounded-xl border p-6">
-            <p className="text-sm text-gray-500">Revenue</p>
-            <p className="text-2xl font-medium mt-1">
-              {loading ? '...' : `$${stats?.revenue.toLocaleString()}`}
-            </p>
-          </div>
-          <div className="bg-white rounded-xl border p-6">
-            <p className="text-sm text-gray-500">Active Orgs</p>
-            <p className="text-2xl font-medium mt-1">
-              {loading ? '...' : stats?.orgCount}
-            </p>
-          </div>
-        </div>
-
-        {/* Line chart - user growth */}
-        <div className="bg-white rounded-xl border p-6 mb-6">
-          <h2 className="text-sm font-medium text-gray-700 mb-4">User Growth</h2>
-          <ResponsiveContainer width="100%" height={240}>
-            <LineChart data={stats?.userGrowth}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-              <XAxis
-                dataKey="month"
-                tick={{ fontSize: 12, fill: '#9ca3af' }}
-                axisLine={false}
-                tickLine={false}
-              />
-              <YAxis
-                tick={{ fontSize: 12, fill: '#9ca3af' }}
-                axisLine={false}
-                tickLine={false}
-              />
-              <Tooltip />
-              <Line
-                type="monotone"
-                dataKey="users"
-                stroke="#111827"
-                strokeWidth={2}
-                dot={false}
-              />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-
-        {/* Bar chart - revenue */}
+      {/* Metric cards */}
+      <div className="grid grid-cols-3 gap-4 mb-8">
         <div className="bg-white rounded-xl border p-6">
-          <h2 className="text-sm font-medium text-gray-700 mb-4">Monthly Revenue</h2>
-          <ResponsiveContainer width="100%" height={240}>
-            <BarChart data={revenueData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-              <XAxis
-                dataKey="month"
-                tick={{ fontSize: 12, fill: '#9ca3af' }}
-                axisLine={false}
-                tickLine={false}
-              />
-              <YAxis
-                tick={{ fontSize: 12, fill: '#9ca3af' }}
-                axisLine={false}
-                tickLine={false}
-              />
-              <Tooltip formatter={(value) => [`$${value}`, 'Revenue']} />
-              <Bar dataKey="revenue" fill="#111827" radius={[4, 4, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
+          <p className="text-sm text-gray-500">Total Users</p>
+          <p className="text-2xl font-medium mt-1">
+            {loading ? '...' : stats?.userCount.toLocaleString()}
+          </p>
         </div>
+        <div className="bg-white rounded-xl border p-6">
+          <p className="text-sm text-gray-500">Revenue</p>
+          <p className="text-2xl font-medium mt-1">
+            {loading ? '...' : `$${stats?.revenue.toLocaleString()}`}
+          </p>
+        </div>
+        <div className="bg-white rounded-xl border p-6">
+          <p className="text-sm text-gray-500">Active Orgs</p>
+          <p className="text-2xl font-medium mt-1">
+            {loading ? '...' : stats?.orgCount}
+          </p>
+        </div>
+      </div>
 
-      </main>
-    </div>
+      {/* Line chart */}
+      <div className="bg-white rounded-xl border p-6 mb-6">
+        <h2 className="text-sm font-medium text-gray-700 mb-4">User Growth</h2>
+        <ResponsiveContainer width="100%" height={240}>
+          <LineChart data={stats?.userGrowth}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+            <XAxis dataKey="month" tick={{ fontSize: 12, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fontSize: 12, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
+            <Tooltip />
+            <Line type="monotone" dataKey="users" stroke="#111827" strokeWidth={2} dot={false} />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* Bar chart */}
+      <div className="bg-white rounded-xl border p-6">
+        <h2 className="text-sm font-medium text-gray-700 mb-4">Monthly Revenue</h2>
+        <ResponsiveContainer width="100%" height={240}>
+          <BarChart data={revenueData}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+            <XAxis dataKey="month" tick={{ fontSize: 12, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fontSize: 12, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
+            <Tooltip formatter={(value) => [`$${value}`, 'Revenue']} />
+            <Bar dataKey="revenue" fill="#111827" radius={[4, 4, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    </main>
   )
 }
